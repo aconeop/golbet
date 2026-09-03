@@ -12,8 +12,8 @@ public class Match : AuditableEntity
     
     public MatchStatus Status { get; set; } = MatchStatus.Scheduled;
 
-    public int? HomeScore { get; set; }
-    public int? AwayScore { get; set; }
+    public int? HomeGoals { get; set; }
+    public int? AwayGoals { get; set; }
 
     [Column(TypeName = "decimal(5,2)")]
     public decimal HomeOdds { get; set; }

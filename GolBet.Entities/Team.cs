@@ -9,6 +9,8 @@ public class Team : AuditableEntity
     [MaxLength(100)]
     public string Name { get; set; } = string.Empty;
 
+    public string City { get; set; } = string.Empty;
+
     [MaxLength(500)]
-    public string? ShieldUrl { get; set; }
+    public string? CrestUrl { get; set; }
 }
