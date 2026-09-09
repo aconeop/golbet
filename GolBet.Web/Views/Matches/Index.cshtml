@@ -1,0 +1,72 @@
+@using GolBet.Web.Helpers
+@model IEnumerable<GolBet.Services.DTOs.MatchDto>
+ 
+@{
+    ViewData["Title"] = "Cartelera de Partidos";
+}
+ 
+<h2 class="mb-4 text-primary">Cartelera de Partidos</h2>
+ 
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    @foreach (var match in Model)
+    {
+        <div class="col">
+            <div class="card h-100 shadow-sm border-0 bg-dark text-light">
+                <div class="card-header border-bottom border-secondary d-flex justify-content-between align-items-center">
+                    <span class="badge @(match.Status.ToString() == "Scheduled" ? "bg-primary" : (match.Status.ToString() == "InProgress" ? "bg-warning text-dark" : "bg-secondary"))">
+                        @match.Status
+                    </span>
+                    <small class="text-muted">@match.Date.ToColombiaTime().ToString("g")</small>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <!-- Home Team -->
+                        <div class="text-center" style="width: 40%;">
+                            <img src="@match.HomeTeamCrestUrl" alt="@match.HomeTeamName" class="img-fluid rounded-circle mb-2" style="max-height: 50px;" />
+                            <h6 class="mb-0">@match.HomeTeamName</h6>
+                        </div>
+                        
+                        <!-- Score or VS -->
+                        <div class="text-center" style="width: 20%;">
+                            @if (match.Status.ToString() == "Scheduled")
+                            {
+                                <span class="fs-4 text-muted">vs</span>
+                            }
+                            else
+                            {
+                                <span class="fs-3 fw-bold text-light">@match.HomeGoals - @match.AwayGoals</span>
+                            }
+                        </div>
+ 
+                        <!-- Away Team -->
+                        <div class="text-center" style="width: 40%;">
+                            <img src="@match.AwayTeamCrestUrl" alt="@match.AwayTeamName" class="img-fluid rounded-circle mb-2" style="max-height: 50px;" />
+                            <h6 class="mb-0">@match.AwayTeamName</h6>
+                        </div>
+                    </div>
+                    
+                    @if (match.Status.ToString() == "Scheduled")
+                    {
+                        <div class="d-flex justify-content-between text-center mt-4">
+                            <div class="w-100 border border-secondary rounded p-2 mx-1 bg-gradient">
+                                <small class="d-block text-muted">Local</small>
+                                <strong>@match.HomeOdds</strong>
+                            </div>
+                            <div class="w-100 border border-secondary rounded p-2 mx-1 bg-gradient">
+                                <small class="d-block text-muted">Empate</small>
+                                <strong>@match.DrawOdds</strong>
+                            </div>
+                            <div class="w-100 border border-secondary rounded p-2 mx-1 bg-gradient">
+                                <small class="d-block text-muted">Visitante</small>
+                                <strong>@match.AwayOdds</strong>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="card-footer bg-transparent border-top border-secondary text-center">
+                    <a href="#" class="btn btn-outline-primary btn-sm w-100">Ver Detalles</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
