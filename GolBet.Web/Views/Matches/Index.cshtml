@@ -3,9 +3,22 @@
  
 @{
     ViewData["Title"] = "Cartelera de Partidos";
+    var currentFilter = ViewBag.CurrentFilter as GolBet.Entities.Enums.MatchStatus?;
 }
  
-<h2 class="mb-4 text-primary">Cartelera de Partidos</h2>
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="text-primary mb-0">Cartelera de Partidos</h2>
+    <div class="btn-group" role="group" aria-label="Filtros de estado">
+        <a asp-action="Index" asp-route-status="" 
+           class="btn btn-outline-primary @(currentFilter == null ? "active" : "")">Todos</a>
+        <a asp-action="Index" asp-route-status="Scheduled" 
+           class="btn btn-outline-primary @(currentFilter == GolBet.Entities.Enums.MatchStatus.Scheduled ? "active" : "")">Programados</a>
+        <a asp-action="Index" asp-route-status="InProgress" 
+           class="btn btn-outline-primary @(currentFilter == GolBet.Entities.Enums.MatchStatus.InProgress ? "active" : "")">En Vivo</a>
+        <a asp-action="Index" asp-route-status="Finished" 
+           class="btn btn-outline-primary @(currentFilter == GolBet.Entities.Enums.MatchStatus.Finished ? "active" : "")">Finalizados</a>
+    </div>
+</div>
  
 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
     @foreach (var match in Model)
@@ -64,7 +77,7 @@
                     }
                 </div>
                 <div class="card-footer bg-transparent border-top border-secondary text-center">
-                    <a href="#" class="btn btn-outline-primary btn-sm w-100">Ver Detalles</a>
+                    <a asp-action="Detail" asp-route-id="@match.Id" class="btn btn-outline-primary btn-sm w-100">Ver Detalles</a>
                 </div>
             </div>
         </div>

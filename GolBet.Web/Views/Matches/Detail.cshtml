@@ -1,0 +1,78 @@
+@using GolBet.Web.Helpers
+@model GolBet.Services.DTOs.MatchDetailDto
+ 
+@{
+    ViewData["Title"] = "Detalle del Partido";
+}
+ 
+<div class="container mt-4">
+    <a asp-action="Index" class="btn btn-outline-secondary mb-4">&larr; Volver a la Cartelera</a>
+ 
+    <div class="card shadow-lg border-0 bg-dark text-light">
+        <!-- Header -->
+        <div class="card-header border-bottom border-secondary text-center py-4">
+            <span class="badge @(Model.Status.ToString() == "Scheduled" ? "bg-primary" : (Model.Status.ToString() == "InProgress" ? "bg-warning text-dark" : "bg-secondary")) mb-2 fs-6">
+                @Model.Status
+            </span>
+            <h5 class="text-muted mb-0">@Model.Date.ToColombiaTime().ToString("f")</h5>
+        </div>
+ 
+        <!-- Body (Teams and Score) -->
+        <div class="card-body py-5">
+            <div class="row align-items-center">
+                <!-- Home Team -->
+                <div class="col-4 text-center">
+                    <img src="@Model.HomeTeamCrestUrl" alt="@Model.HomeTeamName" class="img-fluid rounded-circle mb-3" style="max-height: 120px;" />
+                    <h3 class="fw-bold">@Model.HomeTeamName</h3>
+                    <p class="text-muted">@Model.HomeTeamCity</p>
+                </div>
+ 
+                <!-- Score / VS -->
+                <div class="col-4 text-center">
+                    @if (Model.Status.ToString() == "Scheduled")
+                    {
+                        <h1 class="display-3 text-muted fw-bold">VS</h1>
+                    }
+                    else
+                    {
+                        <h1 class="display-1 fw-bold text-light">@Model.HomeGoals - @Model.AwayGoals</h1>
+                    }
+                </div>
+ 
+                <!-- Away Team -->
+                <div class="col-4 text-center">
+                    <img src="@Model.AwayTeamCrestUrl" alt="@Model.AwayTeamName" class="img-fluid rounded-circle mb-3" style="max-height: 120px;" />
+                    <h3 class="fw-bold">@Model.AwayTeamName</h3>
+                    <p class="text-muted">@Model.AwayTeamCity</p>
+                </div>
+            </div>
+        </div>
+ 
+        <!-- Footer (Odds and Stats) -->
+        <div class="card-footer bg-transparent border-top border-secondary py-4">
+            <div class="row text-center">
+                <div class="col-md-8">
+                    <h5 class="text-muted mb-3">Cuotas Actuales</h5>
+                    <div class="d-flex justify-content-around">
+                        <div class="px-4 py-2 border border-secondary rounded bg-gradient w-100 mx-2">
+                            <span class="d-block text-muted mb-1">Local</span>
+                            <span class="fs-4 fw-bold">@Model.HomeOdds</span>
+                        </div>
+                        <div class="px-4 py-2 border border-secondary rounded bg-gradient w-100 mx-2">
+                            <span class="d-block text-muted mb-1">Empate</span>
+                            <span class="fs-4 fw-bold">@Model.DrawOdds</span>
+                        </div>
+                        <div class="px-4 py-2 border border-secondary rounded bg-gradient w-100 mx-2">
+                            <span class="d-block text-muted mb-1">Visitante</span>
+                            <span class="fs-4 fw-bold">@Model.AwayOdds</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 border-start border-secondary d-flex flex-column justify-content-center align-items-center">
+                    <h5 class="text-muted mb-2">Total Apuestas</h5>
+                    <span class="display-6 fw-bold text-primary">@Model.TotalBetsPlaced</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

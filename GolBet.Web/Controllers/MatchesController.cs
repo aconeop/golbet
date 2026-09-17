@@ -1,3 +1,4 @@
+using GolBet.Entities.Enums;
 using GolBet.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
  
@@ -12,9 +13,18 @@ public class MatchesController : Controller
         _matchService = matchService;
     }
  
-    public async Task<IActionResult> Index()
+    public async Task<IActionResult> Index(MatchStatus? status = null)
     {
-        var board = await _matchService.GetBoardAsync();
+        ViewBag.CurrentFilter = status;
+        var board = await _matchService.GetBoardAsync(status);
         return View(board);
+    }
+
+    public async Task<IActionResult> Detail(int id)
+    {
+        var match = await _matchService.GetDetailAsync(id);
+        if (match is null) return NotFound();
+ 
+        return View(match);
     }
 }
