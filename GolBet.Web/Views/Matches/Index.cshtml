@@ -7,16 +7,19 @@
 }
  
 <div class="d-flex justify-content-between align-items-center mb-4">
-    <h2 class="text-primary mb-0">Cartelera de Partidos</h2>
-    <div class="btn-group" role="group" aria-label="Filtros de estado">
-        <a asp-action="Index" asp-route-status="" 
-           class="btn btn-outline-primary @(currentFilter == null ? "active" : "")">Todos</a>
-        <a asp-action="Index" asp-route-status="Scheduled" 
-           class="btn btn-outline-primary @(currentFilter == GolBet.Entities.Enums.MatchStatus.Scheduled ? "active" : "")">Programados</a>
-        <a asp-action="Index" asp-route-status="InProgress" 
-           class="btn btn-outline-primary @(currentFilter == GolBet.Entities.Enums.MatchStatus.InProgress ? "active" : "")">En Vivo</a>
-        <a asp-action="Index" asp-route-status="Finished" 
-           class="btn btn-outline-primary @(currentFilter == GolBet.Entities.Enums.MatchStatus.Finished ? "active" : "")">Finalizados</a>
+    <h2>⚽ Cartelera de partidos</h2>
+    <div class="d-flex gap-2 align-items-center">
+        <div class="btn-group" role="group" aria-label="Filtros de estado">
+            <a asp-action="Index" asp-route-status="" 
+               class="btn btn-outline-primary @(currentFilter == null ? "active" : "")">Todos</a>
+            <a asp-action="Index" asp-route-status="Scheduled" 
+               class="btn btn-outline-primary @(currentFilter == GolBet.Entities.Enums.MatchStatus.Scheduled ? "active" : "")">Programados</a>
+            <a asp-action="Index" asp-route-status="InProgress" 
+               class="btn btn-outline-primary @(currentFilter == GolBet.Entities.Enums.MatchStatus.InProgress ? "active" : "")">En Vivo</a>
+            <a asp-action="Index" asp-route-status="Finished" 
+               class="btn btn-outline-primary @(currentFilter == GolBet.Entities.Enums.MatchStatus.Finished ? "active" : "")">Finalizados</a>
+        </div>
+        <a asp-action="Create" class="btn btn-success">+ Nuevo partido</a>
     </div>
 </div>
  

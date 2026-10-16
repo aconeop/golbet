@@ -26,4 +26,5 @@ public class MatchDetailDto
  
     // Aggregate property calculated from the Match.Bets collection
     public int TotalBetsPlaced { get; set; }
+    public int TotalBets { get; set; }
 }
