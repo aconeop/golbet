@@ -19,7 +19,10 @@
             <a asp-action="Index" asp-route-status="Finished" 
                class="btn btn-outline-primary @(currentFilter == GolBet.Entities.Enums.MatchStatus.Finished ? "active" : "")">Finalizados</a>
         </div>
-        <a asp-action="Create" class="btn btn-success">+ Nuevo partido</a>
+        @if (User.IsInRole("Admin"))
+        {
+            <a asp-action="Create" class="btn btn-success">+ Nuevo partido</a>
+        }
     </div>
 </div>
  
