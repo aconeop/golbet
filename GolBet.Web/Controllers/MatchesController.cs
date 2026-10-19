@@ -19,10 +19,11 @@ public class MatchesController : Controller
         _teamService = teamService;
     }
 
-    public async Task<IActionResult> Index(MatchStatus? status = null)
+    public async Task<IActionResult> Index(MatchStatus? status = null, string? search = null)
     {
         ViewBag.CurrentFilter = status;
-        var board = await _matchService.GetBoardAsync(status);
+        ViewBag.CurrentSearch = search;
+        var board = await _matchService.GetBoardAsync(status, search);
         return View(board);
     }
 
